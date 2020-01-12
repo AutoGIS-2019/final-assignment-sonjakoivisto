@@ -121,7 +121,7 @@ def BasemapScaleNarrow(ax):
 
 
         #add scalebar
-        scalebar = ScaleBar(2.0, location=4)
+        scalebar = ScaleBar(1.0, location=4)
         plt.gca().add_artist(scalebar)
 
         #add north arrow
@@ -188,7 +188,7 @@ def StaticMap(geodata, classified_column, transport_method):
     fig, ax = plt.subplots(figsize=(10,10))
 
     #plot the travel times according to the classified field
-    geodata.plot(ax= ax, column=classified_column, cmap="RdYlBu", vmax=60, legend=True)
+    geodata.plot(ax= ax, column=classified_column, cmap="RdYlBu", legend=True)
     
     BasemapScaleNarrow(ax)
         
@@ -247,7 +247,7 @@ def MultipleMaps(geodata, transport_method, ncols, nrows):
     
     
     
-def Visualiser(geodata, transport_method, interactive=None): 
+def Visualiser(geodata, transport_method, interactive=None, classified=None): 
     """
     This function is meant for visualising the minimum travel time to multiple destinations with 
     a certain transportation method (any of the destiantions).The first argument is a geodataframe 
@@ -283,6 +283,10 @@ def Visualiser(geodata, transport_method, interactive=None):
     if(interactive == "yes"):
         
         InteractiveMap(geodata, column_name, transport_method, bins)
+    
+    #produce a classified static map
+    elif(classified == "yes"):
+        StaticMap(geodata, geodata["classified"], transport_method)
     
     #produce a static map if interactive parameter is not present
     else:
