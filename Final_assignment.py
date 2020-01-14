@@ -49,21 +49,31 @@ def FileFinder(YKR_ids):
     """
     Gets the data for certain cell of Helsinki Travel time matrix. Insert a list of YKR ids. 
     """
+    #create a list for the outputs
     filepaths = []
     
+    #make sure that user input is a list, otherwise print a message to the user
     if(type(YKR_ids)!=list):
         print("Please make sure that input is a list")
     
+    #loop over the inputs and keep track of loops
     for num, i in enumerate(YKR_ids):
         
+        #access the first 4 numbers of the input which indicate the folder name (xxx added in the string)
         folder = str(i)[0:4]
         
+        #put together the filepath according to the filepaths when you unzip Travel Time Matrix
         fp = r"data/HelsinkiTravelTimeMatrix2018/" + folder + "xxx/travel_times_to_ " + str(i) + ".txt"
+        #Print which file is under process and how many in total
         print("Processing file " + fp + ". Progress: " + str(num+1) + "/" + str(len(YKR_ids)))
+        
+        #make sure that a file exists with that path, otherwise print a warning
         if(os.path.isfile(fp)==False):
             print("WARNING: FILE DOES NOT EXIST")
+        #add the filepath to filepaths list
         filepaths.append(fp)
     
+    #return filepaths
     return filepaths
 
 
@@ -81,8 +91,9 @@ def TableJoiner(filepaths):
 
         #read in the file
         data = pd.read_csv(fp, sep=";", usecols=["from_id", "bike_f_t", "pt_r_t", "car_r_t"])
-        #get the cell number and add it to all travel time columns to distinguish them
+        #get the cell number
         cell_ID = fp.split("_")[-1][:-4]
+        #create new names for each added columns by the number of the file under processing (i)
         new_names = {"from_id": "YKR_ID", "bike_f_t": "bike_f_t_" + str(i), "pt_r_t": "pt_r_t_" + str(i),
                     "car_r_t": "car_r_t_" + str(i)}
         data= data.rename(columns=new_names)
@@ -218,6 +229,8 @@ def MultipleMaps(geodata, transport_method, ncols, nrows):
     #change crs to add basemap later
     geodata = geodata.to_crs(epsg=3857)
     
+    #get desired travel method from user input and access the relevat columns
+    #if user input is bike, get all columns starting with bike (bike_f_t_0, bike_f_t_1 etc.) and save them to target_cols
     if(transport_method == "bike"):
         target_cols = [col for col in geodata if col.startswith("bike")]
     elif(transport_method == "car"):
@@ -233,10 +246,12 @@ def MultipleMaps(geodata, transport_method, ncols, nrows):
     #flatten the axis to be one dimensional array (ease of plotting with iteration)
     axes = axes.flatten()
     
+    #loop over all columns to visualise them
     for i, col in enumerate(target_cols):
         #plot the travel times according to the classified field
         geodata.plot(ax= axes[i], column=col, cmap="RdYlBu", vmax= 60, legend=True) 
-            
+        
+        #add scale, basemap and north arrow
         BasemapScaleNarrow(axes[i])
         
     #add title and show map
