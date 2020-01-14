@@ -58,7 +58,7 @@ def FileFinder(YKR_ids):
         
         folder = str(i)[0:4]
         
-        fp = r"data/" + folder + "/travel_times_to_ " + str(i) + ".txt"
+        fp = r"data/HelsinkiTravelTimeMatrix2018/" + folder + "xxx/travel_times_to_ " + str(i) + ".txt"
         print("Processing file " + fp + ". Progress: " + str(num+1) + "/" + str(len(YKR_ids)))
         if(os.path.isfile(fp)==False):
             print("WARNING: FILE DOES NOT EXIST")
@@ -182,7 +182,7 @@ def InteractiveMap(geodata, column_name, transport_method, bins):
         
 
         
-def StaticMap(geodata, classified_column, transport_method):
+def StaticMap(geodata, classified_column, transport_method, bins):
     
     #change crs to add basemap later
     geodata = geodata.to_crs(epsg=3857)
@@ -192,6 +192,8 @@ def StaticMap(geodata, classified_column, transport_method):
 
     #plot the travel times according to the classified field
     geodata.plot(ax= ax, column=classified_column, cmap="RdYlBu", legend=True)
+    cbar = fig.axes[1]
+    cbar.set_yticklabels(bins)
     
     BasemapScaleNarrow(ax)
         
@@ -294,7 +296,7 @@ def Visualiser(geodata, transport_method, interactive=None, classified=None):
     #produce a static map if interactive parameter is not present
     else:
     
-        StaticMap(geodata, column_name, transport_method)
+        StaticMap(geodata, column_name, transport_method, bins)
 
 
 
@@ -349,7 +351,7 @@ def Comparer(geodata, transport_list, interactive=None):
     
     #otherwise produce a regular map
     else: 
-        StaticMap(geodata, geodata["classified"], "comparison")
+        StaticMap(geodata, geodata["classified"], "comparison", bins)
         
         
 def ShortestPath(orig_address, dest_address):
