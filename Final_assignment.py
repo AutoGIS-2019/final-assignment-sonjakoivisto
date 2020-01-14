@@ -6,10 +6,13 @@ import numpy as np
 import mapclassify
 import matplotlib.pyplot as plt
 import folium
-from mpl_toolkits.axes_grid1 import make_axes_locatable
 from matplotlib_scalebar.scalebar import ScaleBar
 import contextily as ctx
 import os.path 
+import osmnx as ox
+import networkx as nx
+from geopandas.tools import geocode
+from pyproj import CRS
 
 
 
@@ -347,3 +350,53 @@ def Comparer(geodata, transport_list, interactive=None):
     #otherwise produce a regular map
     else: 
         StaticMap(geodata, geodata["classified"], "comparison")
+        
+        
+def ShortestPath(orig_address, dest_address):
+    """
+    This function takes a two addresses in as an input (origin and destination). The addresses should be strings. Then it calculates he quickest route from origin to destination by driving and presents  that on a map. Please note that the function only works in Helsinki because the network data is heavy, that's why it might be slow. 
+    """
+    #retrieve the driving network from Helsinki. I first did this with bike network data but none of the nodes I tried were connected to biking network so I changed that to driving for the sake of convenience.
+    place_name = "Helsinki, Finland"
+    graph = ox.graph_from_place(place_name, network_type="drive")
+    
+    #project the graph
+    graph_proj = ox.project_graph(graph)
+    
+    #access projected nodes and edges
+    nodes_proj, edges_proj = ox.graph_to_gdfs(graph_proj, nodes=True, edges=True)
+    
+    #create a dataframe with the addresses as an input
+    d= {"id": [1,2], "addr": [orig_address, dest_address]}
+    data = pd.DataFrame(data=d)
+
+    #geocode addresses so the dataframe becomes a geodataframe (with location information extracted by geocoding)
+    geo = geocode(data["addr"], provider="nominatim", user_agent="SK", timeout=4)
+    
+    #check CRS systems, they are different
+    CRS(geo.crs).to_epsg()
+    CRS(edges_proj.crs).to_epsg()
+    
+    #convert geo to same CRS system with projected network
+    geo = geo.to_crs(epsg=32635)
+    
+    #make a tuple of the x and y coordinates by retrieving them from dataframe. Y is first because it is latitude infomation
+    orig_xy = [geo["geometry"][0].y, geo["geometry"][0].x]
+    dest_xy = [geo["geometry"][1].y, geo["geometry"][1].x]
+
+    #find the nearest node to the origin and target point coordinates with euclidean distance
+    orig_node = ox.get_nearest_node(graph_proj, orig_xy, method='euclidean')
+    target_node = ox.get_nearest_node(graph_proj, dest_xy, method='euclidean')
+    
+    # Calculate the shortest path (using Djikstra's algorithm)
+    route = nx.shortest_path(G=graph_proj, source=orig_node, target=target_node, weight='time')
+
+    # Plot the shortest path
+    fig, ax = ox.plot_graph_route(graph_proj, route, origin_point=orig_xy, destination_point=dest_xy)
+
+    #save and return figure
+    output_fig = "outputs/shortest_path_from_" + orig_address + "_to_" + dest_address + ".png"
+    plt.savefig(output_fig)
+    return fig
+        
+    
