@@ -4,9 +4,9 @@
 
 Once you are finished with the final assignment, edit this readme and add "x" to the correct box:
 
-* [ ] Submitted
+* [X] Submitted
 
-* [x] I'm still working on my final assignment. 
+* [ ] I'm still working on my final assignment. 
 
 ### Instructions
 
@@ -17,6 +17,8 @@ Read the final assignment instructions from the course webpages [https://autogis
 *Note: If your code requires some python packages not found in the csc notebooks environment, please mention them also in this readme and provide installation instrutions.*
 
 *Note: Don't upload large files into GitHub! If you are using large input files, provide downloading instructions and perhaps a small sample of the data in this repository for demonstrating your workflow.*
+
+* Package that needs to be installed in notebooks: Matplotlib Scalebar. Run "pip install matplotlib-scalebar" in terminal
 
 ## Topic: 
 AccessViz: Data handling and visualising tool for Travel time Matrix 2018
@@ -29,9 +31,9 @@ Case study: Biking as means of transportation for a uni student
 
 * For your own analysis, download the Travel time and YKR grid data from the above address. Create a folder called "data" under the same folder where you are working. Place the YKR grid in the "data" folder and move the entire folder called "HelsinkiTravelTimeMatrix2018" under the data folder as well. Do not alter the files or filepaths inside HelsinkiTravelTimeMatrix2018.
 
-* More info of the input data in https://pb-elisha-the-witty-d7368195cc.rahtiapp.fi/lab/tree/autogis/exercises/final-assignment-sonjakoivisto/Final_notebook.ipynb
+* More info of the input data in [here](Final_notebook.ipynb)
 
-* Link to limited example data that I used (uni campuses) https://pb-elisha-the-witty-d7368195cc.rahtiapp.fi/lab/tree/autogis/exercises/final-assignment-sonjakoivisto/data 
+* Link to limited [example data](data) that I used (uni campuses) 
 
 ### Analysis steps: 
 1. Identify the YKR id of the area of interest with CellChecker function
@@ -42,8 +44,8 @@ Case study: Biking as means of transportation for a uni student
 6. Create a collage of travel time maps for each destination separately
 7. Visualise fastest routes by car from address A to address B in Helsinki
 
-* Check out the Final_notebook.ipynb to see a walk through of the analysis steps with an example
-https://pb-elisha-the-witty-d7368195cc.rahtiapp.fi/lab/tree/autogis/exercises/final-assignment-sonjakoivisto/Final_notebook.ipynb
+* Check out the [Final_notebook.ipynb](Final_notebook.ipynb) to see a walk through of the analysis steps with an example
+
 
 
 ### Results:
@@ -52,13 +54,15 @@ https://pb-elisha-the-witty-d7368195cc.rahtiapp.fi/lab/tree/autogis/exercises/fi
 - Tutorial demonstrating how to use the tools 
 - A case study made with the tools created that proves that bike is a very useful and fast means of transportation for a uni student not to mention its health benefits and being student-budget friendly
 
-- Here you can see some visualisations created  with this tool https://pb-elisha-the-witty-d7368195cc.rahtiapp.fi/lab/tree/autogis/exercises/final-assignment-sonjakoivisto/outputs
+- Here you can see some [visualisations](outputs) created  with this tool 
 
 ### Links to files:
-- My final script: https://pb-elisha-the-witty-d7368195cc.rahtiapp.fi/lab/tree/autogis/exercises/final-assignment-sonjakoivisto/Final_assignment.py
-- Tutorial demonstrating the tools and documentation with case study: https://pb-elisha-the-witty-d7368195cc.rahtiapp.fi/lab/tree/autogis/exercises/final-assignment-sonjakoivisto/Final_notebook.ipynb
-- Flow chart of the process: https://pb-elisha-the-witty-d7368195cc.rahtiapp.fi/lab/tree/autogis/exercises/final-assignment-sonjakoivisto/Flow%20chart.png
+- [My final script](Final_assignment.py)
+- [Tutorial demonstrating the tools and documentation with case study](Final_notebook.ipynb)
+- [Flow chart of the process](Flow_chart.png)
 
 
-- Scratch notebooks for trying stuff: https://pb-elisha-the-witty-d7368195cc.rahtiapp.fi/lab/tree/autogis/exercises/final-assignment-sonjakoivisto/Final.ipynb, https://pb-elisha-the-witty-d7368195cc.rahtiapp.fi/lab/tree/autogis/exercises/final-assignment-sonjakoivisto/OSMNX.ipynb
-- Discarded pieces: https://pb-elisha-the-witty-d7368195cc.rahtiapp.fi/lab/tree/autogis/exercises/final-assignment-sonjakoivisto/discarded%20_pieces.ipynb
+Scratch notebooks for trying stuff: 
+- [notebook1](Final.ipynb)
+- [notebook2](OSMNX.ipynb)
+- [Discarded pieces](discarded_pieces.ipynb)

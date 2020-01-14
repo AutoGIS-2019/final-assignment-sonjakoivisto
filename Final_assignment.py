@@ -305,6 +305,8 @@ def Comparer(geodata, transport_list, interactive=None):
     Takes geodataframe and list of two transport methods. This function will calculate the time difference between the transport methods from each cell to the destination points and visualise the difference in accessibility with a static map or interactive map if interactive="yes" is passed as an optional argument. It always substracts the second travel method from the first (eg. ["public transport", "bike"] will show positive values where bike is faster and negative where public transit is faster).
     """
     
+    #I acknowledge that this is not probably the best way to do this with so many if else statements and it's a bit repetitive. This should probably be done with a enumerate function and for loop.
+    
     #check what is the first item in user given list and assign the right column to column 1
     if(transport_list[0] == "bike"):
         column1 = geodata["min_t_bike"]
