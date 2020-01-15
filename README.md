@@ -58,7 +58,7 @@ Case study: Biking as means of transportation for a uni student
 
 ### Links to files:
 - [My final script](Final_assignment.py)
-- [Tutorial demonstrating the tools and documentation with case study](Final_notebook.ipynb)
+- [Tutorial demonstrating the tools and documentation with case study](Final_notebook.ipynb) This file is bigger than the recommended size for notebooks, let me know if there is any trouble opening/ running the code!
 - [Flow chart of the process](Flow_chart.png)
 
 
