@@ -3,7 +3,7 @@
 * Package that needs to be installed in notebooks: Matplotlib Scalebar. Run "pip install matplotlib-scalebar" in terminal
 
 ## Topic: 
-AccessViz: Data handling and visualising tool for Travel time Matrix 2018
+[AccessViz](https://automating-gis-processes.github.io/site/lessons/FA/final-assignment.html#accessviz): Data handling and visualising tool for Travel time Matrix 2018
 Case study: Biking as means of transportation for a uni student 
 
 ### Input data: 
